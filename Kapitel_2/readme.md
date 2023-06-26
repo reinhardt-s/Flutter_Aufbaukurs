@@ -8,9 +8,9 @@
 
 ## Was wir programmieren
 
-| Weather Mate - Eine App die das Wetter für den aktuellen Standort anzeigt |
+| Vibe Chat - Eine App für eine einzigen große Gruppenchat |
 |---------------------------------------------------------------------------|
-| ![](weather_mate.png)                                               |
+| ![](vibe_chat.png)                                               |
 
 
 Wir schreiben die App Vibe Chat. 
