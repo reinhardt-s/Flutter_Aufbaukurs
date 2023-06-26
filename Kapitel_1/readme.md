@@ -51,7 +51,6 @@ Um den aktuellen Standort zu ermittel benutzen wir das Paket [geolocator](https:
 flutter pub add geolocator
 ```
 
-Jetzt können wir im `LoadingScreen` den `CircularProgressIndicator` durch ein `FilledButton` mit `ListTile` ersetzen.
 ```dart
 FilledButton(
             onPressed: () {}, // Aktion für den Button (zu implementieren)
