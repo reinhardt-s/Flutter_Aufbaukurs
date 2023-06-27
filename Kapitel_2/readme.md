@@ -30,46 +30,71 @@ Als `initialRoute` soll `WelcomeScreen` verwendet werden.
 
 ## static und const
 
-"Static" ist ein Schlüsselwort in vielen Programmiersprachen, einschließlich Dart, das eine spezifische Variable oder Methode zu einer Klasse gehört und nicht zu einer Instanz dieser Klasse. Mit anderen Worten, static-Member (Variablen oder Methoden) sind Klassenmitglieder und nicht Objekt- oder Instanzmitglieder.
+In Dart gibt es die drei Schlüsselwörter `static`, `const` und `final`, die alle dazu dienen, Variablen zu deklarieren, aber mit unterschiedlichen Regeln und Einschränkungen. Hier ist eine kurze Beschreibung und ein Vergleich:
 
-Schauen wir uns ein Beispiel an:
+- `final`: Einmal zugewiesen, kann der Wert einer `final`-Variable nicht mehr geändert werden. Es ist wichtig zu beachten, dass `final` bei der Laufzeit verwendet wird. `final`-Variablen haben keinen Standardwert, und eine `final`-Variable muss initialisiert werden, bevor sie verwendet wird.
+
+- `const`: `const`-Variablen sind implizit `final`. Ein wichtiger Unterschied ist, dass `const`-Variablen zur Kompilierzeit konstant sind. Das heißt, ihr Wert muss vor der Ausführung des Programms bekannt sein und kann nicht zur Laufzeit geändert werden. `const`-Variablen haben auch keinen Standardwert.
+
+- `static`: `static` wird verwendet, um eine Klassenvariable oder -methode zu deklarieren. Eine `static`-Variable gehört zur Klasse und nicht zu einer Instanz der Klasse. Sie wird geteilt zwischen allen Instanzen der Klasse. `static`-Methoden können keine Instanzmethoden aufrufen oder auf Instanzvariablen zugreifen.
+
+Hier ist eine Tabelle, die den Vergleich zwischen diesen drei zeigt:
+
+|     | Kann den Wert ändern nach der ersten Zuweisung | Gehört zur Klasse statt zur Instanz | Muss zur Kompilierzeit bekannt sein | Standardwert |
+|-----|------------------------------------------------|-------------------------------------|-------------------------------------|--------------|
+|static| Ja                                           | Ja                                  | Nein                                 | Ja           |
+|final| Nein                                          | Nein                                 | Nein                                 | Nein         |
+|const| Nein                                          | Nein                                 | Ja                                   | Nein         | 
+
+Bitte beachten Sie, dass `const` und `final` Konstrukte der Unveränderlichkeit sind, während `static` ein Konstrukt des Klassenkontexts ist. Diese können in verschiedenen Kombinationen verwendet werden, zum Beispiel kann eine Variable `static final` oder `static const` sein.
+
+
+**1. `final`:**
 
 ```dart
-class MyClass {
-  static int staticVar = 0;
+void main() {
+  final String greetingMessage = 'Hello, User!';
+  print(greetingMessage);
+  
+  // The following line will cause a compile error because
+  // you cannot change the value of a final variable
+  // greetingMessage = 'Hello, Admin!';
+}
+```
+In diesem Beispiel wird der `final` Schlüsselwort verwendet, um eine String-Variable `greetingMessage` zu deklarieren. Sobald `greetingMessage` initialisiert wurde, kann ihr Wert nicht mehr geändert werden.
 
-  static void printStaticVar() {
-    print('Der Wert von staticVar ist: $staticVar');
+**2. `const`:**
+
+```dart
+void main() {
+  const double pi = 3.141592653589793;
+  print(pi);
+  
+  // The following line will cause a compile error because
+  // you cannot change the value of a const variable
+  // pi = 3.14;
+}
+```
+In diesem Beispiel wird das `const` Schlüsselwort verwendet, um eine Double-Variable `pi` zu deklarieren. Da `pi` als Konstante deklariert wurde, kann ihr Wert nicht geändert werden und muss zur Kompilierzeit bekannt sein.
+
+**3. `static`:**
+
+```dart
+class Circle {
+  static const double pi = 3.141592653589793;
+
+  static double calculateArea(double radius) {
+    return pi * radius * radius;
   }
 }
 
 void main() {
-  MyClass.staticVar = 10;
-  MyClass.printStaticVar();
+  double radius = 5.0;
+  print('The area of the circle is ${Circle.calculateArea(radius)}');
 }
 ```
+In diesem Beispiel wird das `static` Schlüsselwort verwendet, um eine Konstante `pi` und eine Methode `calculateArea()` in der `Circle`-Klasse zu deklarieren. Da beide als `static` deklariert sind, können sie ohne Instanzierung der `Circle`-Klasse direkt aufgerufen werden.
 
-In diesem Beispiel gehört `staticVar` und `printStaticVar` zur `MyClass` und nicht zu einer bestimmten Instanz von `MyClass`. Daher können wir direkt auf `staticVar` und `printStaticVar` zugreifen, ohne eine Instanz von `MyClass` zu erstellen.
-
-Die Ausgabe dieses Programms wäre: "Der Wert von staticVar ist: 10"
-
-"Static const" in Dart ist ein Begriff, der verwendet wird, um Konstanten auf Klassenebene zu deklarieren. Eine "static const" Variable ist eine Konstante, die auf Klassenebene und nicht auf Instanzebene definiert ist. Einmal definiert, kann ihr Wert nicht geändert werden.
-
-Hier ist ein Beispiel:
-
-```dart
-class MyClass {
-  static const int kConst = 10;
-}
-
-void main() {
-  print(MyClass.kConst);
-}
-```
-
-In diesem Beispiel ist `kConst` eine "static const"-Variable. Ihr Wert kann nach der Definition nicht mehr geändert werden. Wir können direkt auf `kConst` zugreifen, ohne eine Instanz von `kConst` zu erstellen.
-
-Die Ausgabe dieses Programms wäre: "10"
 
 ## Übung
 * Die Buttonst `Login`und `Register` in `WelcomeScreen` sollen mit der Route `LoginScreen` bzw. `RegisterScreen` verlinkt werden.
